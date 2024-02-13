@@ -23,8 +23,6 @@ public class Disciplina {
 
     private String materialApoio;
 
-    private String avaliacao;
-
     @ManyToOne
     @JoinColumn(name = "periodo_id")
     private Periodo periodo;
