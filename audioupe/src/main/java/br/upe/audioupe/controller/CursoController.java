@@ -1,6 +1,6 @@
 package br.upe.audioupe.controller;
 
-import br.upe.audioupe.domain.dto.CursoDTO;
+import br.upe.audioupe.controller.resposta.CursoResponse;
 import br.upe.audioupe.domain.dto.DisciplinaDTO;
 import br.upe.audioupe.domain.dto.ProfessorDTO;
 import br.upe.audioupe.service.CursoService;
@@ -22,7 +22,7 @@ public class CursoController {
 
 
     @GetMapping
-    public ResponseEntity<List<CursoDTO>> todosCursos(){
+    public ResponseEntity<List<CursoResponse>> todosCursos(){
         return ResponseEntity.ok().body(cursoService.exibirCursos());
     }
 
@@ -37,5 +37,12 @@ public class CursoController {
 
         return ResponseEntity.ok().body(cursoService.obterDisciplinasPorCursoEPeriodo(cursoId,periodoId));
     }
+
+    @GetMapping("/{nome}")
+    public ResponseEntity<CursoResponse> buscarCursoPorNome(@PathVariable String nome) {
+        return ResponseEntity.ok(cursoService.buscarCursoPorNome(nome));
+    }
+
+
 
 }

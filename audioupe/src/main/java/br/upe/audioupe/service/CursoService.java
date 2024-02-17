@@ -1,14 +1,17 @@
 package br.upe.audioupe.service;
 
+import br.upe.audioupe.controller.resposta.CursoResponse;
 import br.upe.audioupe.domain.Curso;
 import br.upe.audioupe.domain.dto.CursoDTO;
 import br.upe.audioupe.domain.dto.DisciplinaDTO;
 import br.upe.audioupe.domain.dto.ProfessorDTO;
 import br.upe.audioupe.repository.CursoRepository;
+import br.upe.audioupe.utils.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,11 +28,9 @@ public class CursoService {
 
 
 
-    public List<CursoDTO> exibirCursos(){
+    public List<CursoResponse> exibirCursos(){
         List<Curso> cursos = cursoRepository.findAll();
-        return cursos.stream()
-                .map(curso -> new CursoDTO(curso.getNome(), curso.getDescricao()))
-                .collect(Collectors.toList());
+        return cursos.stream().map(CursoResponse::new).toList();
     }
 
     public List<ProfessorDTO> professoresPorCurso(Long cursoId){
@@ -41,4 +42,13 @@ public class CursoService {
     }
 
 
+    public CursoResponse buscarCursoPorNome(String nome) {
+        Optional<Curso> optionalCurso = cursoRepository.findByNome(nome);
+
+        if (optionalCurso.isEmpty()) {
+            throw new NotFoundException("Curso não encontrado!");
+        }
+
+        return new CursoResponse(optionalCurso.get());
+    }
 }

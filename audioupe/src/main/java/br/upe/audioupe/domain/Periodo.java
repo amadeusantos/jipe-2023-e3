@@ -17,9 +17,9 @@ public class Periodo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String nome;
+    private int nome;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "curso_id")
     private Curso curso;
 

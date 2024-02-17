@@ -20,13 +20,19 @@ public class Curso {
     @Column(unique = true)
     private String nome;
 
+    @Column(columnDefinition = "TEXT")
     private String descricao;
 
     private String email;
 
     private int horasAcs;
 
+    private int vagasAnual;
+
     private String coordenacao;
+
+    @OneToMany
+    private Set<Periodo> periodos;
 
     @ManyToMany(mappedBy = "cursos")
     private Set<Professor> professores;

@@ -19,8 +19,10 @@ public class Disciplina {
 
     private int cargaHorariaTotal;
 
+    @Column(columnDefinition = "TEXT")
     private String conteudoProgramatico;
 
+    @Column(columnDefinition = "TEXT")
     private String materialApoio;
 
     @ManyToOne
