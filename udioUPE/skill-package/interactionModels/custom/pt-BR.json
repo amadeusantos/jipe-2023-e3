@@ -1,0 +1,230 @@
+{
+  "interactionModel": {
+    "dialog": {
+      "intents": [
+        {
+          "slots": [
+            {
+              "name": "discipline",
+              "elicitationRequired": true,
+              "type": "AMAZON.FirstName",
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.511236961570.1585750091378"
+              }
+            }
+          ],
+          "name": "AboutDisciplineIntent",
+          "confirmationRequired": false,
+          "prompts": {}
+        },
+        {
+          "slots": [
+            {
+              "name": "professor",
+              "elicitationRequired": true,
+              "type": "AMAZON.FirstName",
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.790516074345.272607839396"
+              }
+            }
+          ],
+          "name": "AboutProfessorIntent",
+          "confirmationRequired": false,
+          "prompts": {}
+        },
+        {
+          "slots": [
+            {
+              "name": "information",
+              "elicitationRequired": true,
+              "type": "AMAZON.FirstName",
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.1140846243887.1463906915527"
+              }
+            }
+          ],
+          "name": "InformationIntent",
+          "confirmationRequired": false,
+          "prompts": {}
+        },
+        {
+          "slots": [
+            {
+              "name": "course",
+              "elicitationRequired": true,
+              "type": "AMAZON.FictionalCharacter",
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.922244839588.914521678220"
+              }
+            }
+          ],
+          "name": "AboutCourseIntent",
+          "confirmationRequired": false,
+          "prompts": {}
+        }
+      ],
+      "delegationStrategy": "ALWAYS"
+    },
+    "languageModel": {
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": [
+            "encerrar",
+            "valeu",
+            "obrigado"
+          ]
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "slots": [],
+          "name": "HelloWorldIntent",
+          "samples": [
+            "olá",
+            "como vai você",
+            "diga oi mundo",
+            "diga oi",
+            "oi",
+            "diga olá mundo",
+            "diga olá"
+          ]
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "slots": [
+            {
+              "name": "course",
+              "type": "AMAZON.FictionalCharacter",
+              "samples": [
+                "curso de {course}",
+                "{course}"
+              ]
+            }
+          ],
+          "name": "AboutCourseIntent",
+          "samples": [
+            "curso de {course}",
+            "curso {course}",
+            "fale sobre o curso {course}"
+          ]
+        },
+        {
+          "slots": [
+            {
+              "name": "information",
+              "type": "AMAZON.FirstName"
+            }
+          ],
+          "name": "InformationIntent",
+          "samples": [
+            "me der informações sobre {information}"
+          ]
+        },
+        {
+          "slots": [
+            {
+              "name": "discipline",
+              "type": "AMAZON.FirstName"
+            }
+          ],
+          "name": "AboutDisciplineIntent",
+          "samples": [
+            "Fale sobre a disciplina {discipline}"
+          ]
+        },
+        {
+          "slots": [
+            {
+              "name": "professor",
+              "type": "AMAZON.FirstName"
+            }
+          ],
+          "name": "AboutProfessorIntent",
+          "samples": [
+            "fale sobre o professor {professor}"
+          ]
+        },
+        {
+          "slots": [],
+          "name": "ListCoursesIntent",
+          "samples": [
+            "quais os cursos disponibilizados",
+            "quais os cursos",
+            "cursos"
+          ]
+        },
+        {
+          "slots": [],
+          "name": "CourseObjectiveIntent",
+          "samples": [
+            "mais",
+            "objetivo",
+            "Qual o objetivo do curso"
+          ]
+        }
+      ],
+      "types": [],
+      "invocationName": "áudio upe"
+    },
+    "prompts": [
+      {
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Qual a disciplina?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Qual disciplina você deseja saber?"
+          }
+        ],
+        "id": "Elicit.Slot.511236961570.1585750091378"
+      },
+      {
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Qual o nome do professor que deseja informações?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Qual o nome do professor?"
+          }
+        ],
+        "id": "Elicit.Slot.790516074345.272607839396"
+      },
+      {
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "qual o nome do serviço?"
+          }
+        ],
+        "id": "Elicit.Slot.1140846243887.1463906915527"
+      },
+      {
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Qual curso você deseja informações?"
+          }
+        ],
+        "id": "Elicit.Slot.922244839588.914521678220"
+      }
+    ]
+  }
+}
