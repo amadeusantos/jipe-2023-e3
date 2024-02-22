@@ -1,11 +1,12 @@
-package br.upe.audioupe.domain;
+package br.upe.audioupe.model;
 
+import br.upe.audioupe.model.enums.DegreeEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,15 +18,18 @@ public class Professor {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String nome;
+    private String name;
 
     private String email;
 
-    private String areaFormacao;
+    @Enumerated(EnumType.STRING)
+    private DegreeEnum degree;
+
+    private String field;
+
+    private String areasOfExpertise;
 
     @ManyToMany
-    @JoinTable(name = "professor_curso",
-            joinColumns = @JoinColumn(name = "professor_id"),
-            inverseJoinColumns = @JoinColumn(name = "curso_id"))
-    private Set<Curso> cursos;
+    private List<Course> courses;
+
 }
