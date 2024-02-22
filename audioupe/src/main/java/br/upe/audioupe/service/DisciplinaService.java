@@ -20,4 +20,8 @@ public class DisciplinaService {
     public Page<Disciplina> obterDisciplinasPorCurso(Long curso_id, Pageable pageable){
         return this.disciplinaRepository.findByCursoId(curso_id, pageable);
     }
+
+    public List<Disciplina> obterDisciplinasPorCursoEPeriodo(Long curso_id, Long periodo_id){
+        return this.disciplinaRepository.findByCursoIdAndPeriodo(curso_id,periodo_id);
+    }
 }

@@ -38,4 +38,9 @@ public class CursoController {
     ){
         return ResponseEntity.ok().body(cursoService.obterDisciplinasPorCurso(curso_id, page, size, order));
     }
+
+    @GetMapping("/{curso_id}/periodo/{periodo_id}/disciplinas")
+    public ResponseEntity<List<DisciplinaDTO>> obterDisciplinasPorCursoEPeriodo(@PathVariable Long curso_id, @PathVariable Long periodo_id){
+        return ResponseEntity.ok().body(cursoService.obterDisciplinasPorCursoEPeriodo(curso_id,periodo_id));
+    }
 }

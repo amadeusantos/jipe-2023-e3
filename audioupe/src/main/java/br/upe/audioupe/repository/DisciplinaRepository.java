@@ -14,4 +14,6 @@ import java.util.List;
 public interface DisciplinaRepository extends JpaRepository<Disciplina,Long> {
 
     Page<Disciplina> findByCursoId(Long cursoId, Pageable pageable);
+
+    List<Disciplina> findByCursoIdAndPeriodo(Long cursoId, Long periodoId);
 }

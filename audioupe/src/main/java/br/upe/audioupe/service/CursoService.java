@@ -52,4 +52,12 @@ public class CursoService {
                 )
         );
     }
+
+    public List<DisciplinaDTO> obterDisciplinasPorCursoEPeriodo(Long curso_id, Long periodo_id){
+        List<Disciplina> disciplinas = disciplinaService.obterDisciplinasPorCursoEPeriodo(curso_id,periodo_id);
+
+        return disciplinas.stream()
+                .map(disciplina -> new DisciplinaDTO(disciplina.getNome(), disciplina.getPeriodo(), disciplina.getCargaHorariaTotal()))
+                .collect(Collectors.toList());
+    }
 }
