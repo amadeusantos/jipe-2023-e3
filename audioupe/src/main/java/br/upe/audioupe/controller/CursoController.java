@@ -5,11 +5,9 @@ import br.upe.audioupe.domain.dto.DisciplinaDTO;
 import br.upe.audioupe.domain.dto.ProfessorDTO;
 import br.upe.audioupe.service.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,11 +29,13 @@ public class CursoController {
         return ResponseEntity.ok().body(cursoService.professoresPorCurso(cursoId));
     }
 
-    @GetMapping("/{cursoId}/periodos/{periodoId}/disciplinas")
-    public ResponseEntity<List<DisciplinaDTO>> obterDisciplinasPorCursoEPeriodo(@PathVariable(name = "cursoId") Long cursoId,
-                                                                                @PathVariable(name = "periodoId") Long periodoId){
-
-        return ResponseEntity.ok().body(cursoService.obterDisciplinasPorCursoEPeriodo(cursoId,periodoId));
+    @GetMapping("/{curso_id}/disciplinas")
+    public ResponseEntity<Page<DisciplinaDTO>> obterDisciplinasPorCurso(
+                                    @PathVariable Long curso_id,
+                                    @RequestParam(defaultValue = "0") int page,
+                                    @RequestParam(defaultValue = "10") int size,
+                                    @RequestParam(defaultValue = "nome") String order
+    ){
+        return ResponseEntity.ok().body(cursoService.obterDisciplinasPorCurso(curso_id, page, size, order));
     }
-
 }

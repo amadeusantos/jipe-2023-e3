@@ -4,6 +4,8 @@ import br.upe.audioupe.domain.Disciplina;
 import br.upe.audioupe.domain.dto.DisciplinaDTO;
 import br.upe.audioupe.repository.DisciplinaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,11 +17,7 @@ public class DisciplinaService {
     @Autowired
     private DisciplinaRepository disciplinaRepository;
 
-    public List<DisciplinaDTO> obterDisciplinasPorCursoEPeriodo(Long cursoId, Long periodoId){
-        List<Disciplina> disciplinas = disciplinaRepository.findByCursoIdAndPeriodoId(cursoId,periodoId);
-
-        return disciplinas.stream()
-                .map(d -> new DisciplinaDTO(d.getNome(),d.getCargaHorariaTotal()))
-                .collect(Collectors.toList());
+    public Page<Disciplina> obterDisciplinasPorCurso(Long curso_id, Pageable pageable){
+        return this.disciplinaRepository.findByCursoId(curso_id, pageable);
     }
 }
