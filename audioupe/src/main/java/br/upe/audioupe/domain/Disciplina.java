@@ -24,7 +24,7 @@ public class Disciplina {
     private String materialApoio;
 
     @ManyToOne
-    @JoinColumn(name = "periodo_id")
-    private Periodo periodo;
+    @JoinColumn(name = "curso_id")
+    private Curso curso;
 
 }
