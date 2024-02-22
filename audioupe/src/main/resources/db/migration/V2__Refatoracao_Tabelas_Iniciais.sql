@@ -8,6 +8,7 @@ CREATE TABLE Disciplina(
     carga_horaria_total INT,
     conteudo_programatico VARCHAR(255),
     material_apoio VARCHAR(255),
+    periodo_id INT,
     curso_id BIGINT,
     FOREIGN KEY (curso_id) REFERENCES Curso(id)
 );

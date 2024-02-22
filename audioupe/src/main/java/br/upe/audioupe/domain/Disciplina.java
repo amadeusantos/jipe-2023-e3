@@ -19,6 +19,9 @@ public class Disciplina {
 
     private int cargaHorariaTotal;
 
+    @Column(name = "periodo_id")
+    private int periodo;
+
     private String conteudoProgramatico;
 
     private String materialApoio;
