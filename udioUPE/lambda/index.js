@@ -9,7 +9,7 @@ const Service = require('./service.js');
 
 const Response = require('./response.js');
 
-const serviceApi = new Service(); 
+const serviceApi = new Service();
 
 const makerResponse = new Response(serviceApi);
 
@@ -18,8 +18,8 @@ const LaunchRequestHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
     handle(handlerInput) {
-        const speakOutput = 'Olá, Bem vindo ao áudio UPE. O que você gostaria de saber sobre a UPE?';
-        
+        const speakOutput = `Olá, Bem vindo ao áudio UPE. O que você gostaria de saber sobre a UPE?`;
+
         const repromptOutput = `Não entendi, você deseja informação sobre cursos, disciplinas ou serviços disponibilizados?`;
 
         return handlerInput.responseBuilder
@@ -35,7 +35,7 @@ const ListCoursesIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'ListCoursesIntent';
     },
     async handle(handlerInput) {
-        
+
         const speakOutput = await makerResponse.listCoursesResponse();
 
         return handlerInput.responseBuilder
@@ -55,7 +55,7 @@ const AboutCourseIntentHandler = {
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
         sessionAttributes.course = course;
         handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
-        
+
         const speakOutput = await makerResponse.aboutCourseResponse(course);
 
         return handlerInput.responseBuilder
@@ -72,15 +72,163 @@ const CourseObjectiveIntentHandler = {
     },
     async handle(handlerInput) {
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-        
-        const speakOutput = await makerResponse.courseObjectiveResponse(sessionAttributes.course);
 
+        let page = Number(sessionAttributes.objectivesPage) || 0;
+        let response = "";
+        if (page === 0 || handlerInput.requestEnvelope.request.intent.confirmationStatus === 'CONFIRMED') {
+
+            const { objectives, size } = await makerResponse.courseInformationResponse('objectives', sessionAttributes.course, page);
+            response = objectives + " ";
+
+
+
+            if (page + 1 < size) {
+                sessionAttributes.objectivesPage = page + 1;
+                return handlerInput.responseBuilder.speak(response + makerResponse.MSG_PLUS_INFOR())
+                    .addConfirmIntentDirective({ name: 'CourseObjectiveIntent', confirmationStatus: 'NONE', slots: handlerInput.requestEnvelope.request.intent.slots })
+                    .withShouldEndSession(false).getResponse();
+            }
+        }
+        sessionAttributes.objectivesPage = 0;
         return handlerInput.responseBuilder
-            .speak(speakOutput)
+            .speak(response + makerResponse.messageEndInformationResponse(sessionAttributes))
+            .withShouldEndSession(false)
+            .getResponse();
+
+    }
+};
+
+const CourseUndergraduateProfileIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'CourseUndergraduateProfileIntent';
+    },
+    async handle(handlerInput) {
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+
+        let page = Number(sessionAttributes.undergraduateProfilePage) || 0;
+        let response = "";
+        if (page === 0 || handlerInput.requestEnvelope.request.intent.confirmationStatus === 'CONFIRMED') {
+
+            const { objectives, size } = await makerResponse.courseInformationResponse('UndergraduateProfile', sessionAttributes.course, page);
+            response = objectives + " ";
+
+
+
+            if (page + 1 < size) {
+                sessionAttributes.undergraduateProfilePage = page + 1;
+                return handlerInput.responseBuilder.speak(response + makerResponse.MSG_PLUS_INFOR())
+                    .addConfirmIntentDirective({ name: 'CourseUndergraduateProfileIntent', confirmationStatus: 'NONE', slots: handlerInput.requestEnvelope.request.intent.slots })
+                    .withShouldEndSession(false).getResponse();
+            }
+        }
+
+        sessionAttributes.undergraduateProfilePage = 0;
+        return handlerInput.responseBuilder
+            .speak(response + makerResponse.messageEndInformationResponse(sessionAttributes))
             .withShouldEndSession(false)
             .getResponse();
     }
-};
+}
+
+const CourseSkillsIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'CourseSkillsIntent';
+    },
+    async handle(handlerInput) {
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+
+        let page = Number(sessionAttributes.skillsPage) || 0;
+        let response = "";
+        if (page === 0 || handlerInput.requestEnvelope.request.intent.confirmationStatus === 'CONFIRMED') {
+
+            const { objectives, size } = await makerResponse.courseInformationResponse('skills', sessionAttributes.course, page);
+            response = objectives + " ";
+
+
+
+            if (page + 1 < size) {
+                sessionAttributes.skillsPage = page + 1;
+                return handlerInput.responseBuilder.speak(response + makerResponse.MSG_PLUS_INFOR())
+                    .addConfirmIntentDirective({ name: 'CourseSkillsIntent', confirmationStatus: 'NONE', slots: handlerInput.requestEnvelope.request.intent.slots })
+                    .withShouldEndSession(false).getResponse();
+            }
+        }
+
+        sessionAttributes.skillsPage = 0;
+        return handlerInput.responseBuilder
+            .speak(response + makerResponse.messageEndInformationResponse(sessionAttributes))
+            .withShouldEndSession(false)
+            .getResponse();
+    }
+}
+
+const CourseInternshipIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'CourseInternshipIntent';
+    },
+    async handle(handlerInput) {
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+
+        let page = Number(sessionAttributes.internshipPage) || 0;
+        let response = "";
+        if (page === 0 || handlerInput.requestEnvelope.request.intent.confirmationStatus === 'CONFIRMED') {
+
+            const { objectives, size } = await makerResponse.courseInformationResponse('internship', sessionAttributes.course, page);
+            response = objectives + " ";
+
+
+
+            if (page + 1 < size) {
+                sessionAttributes.internshipPage = page + 1;
+                return handlerInput.responseBuilder.speak(response + makerResponse.MSG_PLUS_INFOR())
+                    .addConfirmIntentDirective({ name: 'CourseInternshipIntent', confirmationStatus: 'NONE', slots: handlerInput.requestEnvelope.request.intent.slots })
+                    .withShouldEndSession(false).getResponse();
+            }
+        }
+
+        sessionAttributes.internshipPage = 0;
+        return handlerInput.responseBuilder
+            .speak(response + makerResponse.messageEndInformationResponse(sessionAttributes))
+            .withShouldEndSession(false)
+            .getResponse();
+    }
+}
+
+const CourseFinalPaperIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'CourseFinalPaperIntent';
+    },
+    async handle(handlerInput) {
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+
+        let page = Number(sessionAttributes.finalPaperPage) || 0;
+        let response = "";
+        if (page === 0 || handlerInput.requestEnvelope.request.intent.confirmationStatus === 'CONFIRMED') {
+
+            const { objectives, size } = await makerResponse.courseInformationResponse('finalPaper', sessionAttributes.course, page);
+            response = objectives + " ";
+
+
+
+            if (page + 1 < size) {
+                sessionAttributes.finalPaperPage = page + 1;
+                return handlerInput.responseBuilder.speak(response + makerResponse.MSG_PLUS_INFOR())
+                    .addConfirmIntentDirective({ name: 'CourseFinalPaperIntent', confirmationStatus: 'NONE', slots: handlerInput.requestEnvelope.request.intent.slots })
+                    .withShouldEndSession(false).getResponse();
+            }
+        }
+
+        sessionAttributes.finalPaperPage = 0;
+        return handlerInput.responseBuilder
+            .speak(response + makerResponse.messageEndInformationResponse(sessionAttributes))
+            .withShouldEndSession(false)
+            .getResponse();
+    }
+}
 
 // const RequestCourseHandler = {
 //     canHandle(handlerInput) {
@@ -106,7 +254,7 @@ const AboutProfessorIntentHandler = {
     handle(handlerInput) {
         const professor = handlerInput.requestEnvelope.request.intent.slots.professor.value;
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-        
+
         const speakOutput = `${professor}, professor do curso de ${sessionAttributes.course}`;
 
         return handlerInput.responseBuilder
@@ -123,7 +271,7 @@ const AboutDisciplineIntentHandler = {
     handle(handlerInput) {
         const discipline = handlerInput.requestEnvelope.request.intent.slots.discipline.value;
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-        
+
         const speakOutput = `${discipline}, professor do curso de ${sessionAttributes.course}`;
 
         return handlerInput.responseBuilder
@@ -140,7 +288,7 @@ const InformationIntentHandler = {
     handle(handlerInput) {
         const information = handlerInput.requestEnvelope.request.intent.slots.information.value;
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-        
+
         const speakOutput = `${information}, ${sessionAttributes.course}`;
 
         return handlerInput.responseBuilder
@@ -187,7 +335,7 @@ const CancelAndStopIntentHandler = {
     },
     handle(handlerInput) {
         const speakOutput = `Se precisar de mais informações é só chamar áudio UPE! Até a próxima.`;
-// <say-as interpret-as="interjection"></say-as>
+        // <say-as interpret-as="interjection"></say-as>
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .getResponse();
@@ -275,9 +423,13 @@ exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
         ListCoursesIntentHandler,
-        AboutProfessorIntentHandler,
         AboutCourseIntentHandler,
         CourseObjectiveIntentHandler,
+        CourseUndergraduateProfileIntentHandler,
+        CourseSkillsIntentHandler,
+        CourseInternshipIntentHandler,
+        CourseFinalPaperIntentHandler,
+        AboutProfessorIntentHandler,
         AboutDisciplineIntentHandler,
         InformationIntentHandler,
         HelloWorldIntentHandler,

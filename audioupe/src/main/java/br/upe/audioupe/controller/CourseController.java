@@ -1,6 +1,6 @@
 package br.upe.audioupe.controller;
 
-import br.upe.audioupe.controller.resposta.CourseResponse;
+import br.upe.audioupe.controller.response.CourseResponse;
 import br.upe.audioupe.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -55,7 +55,7 @@
             {
               "name": "course",
               "elicitationRequired": true,
-              "type": "AMAZON.FictionalCharacter",
+              "type": "Courses",
               "confirmationRequired": false,
               "prompts": {
                 "elicitation": "Elicit.Slot.922244839588.914521678220"
@@ -108,7 +108,7 @@
           "slots": [
             {
               "name": "course",
-              "type": "AMAZON.FictionalCharacter",
+              "type": "Courses",
               "samples": [
                 "curso de {course}",
                 "{course}"
@@ -175,9 +175,138 @@
             "objetivo",
             "Qual o objetivo do curso"
           ]
+        },
+        {
+          "slots": [],
+          "name": "CourseUndergraduateProfileIntent",
+          "samples": [
+            "perfil",
+            "perfil dos egressos"
+          ]
+        },
+        {
+          "slots": [],
+          "name": "CourseSkillsIntent",
+          "samples": [
+            "competências e habilidades",
+            "habilidades e competências",
+            "competências",
+            "habilidades"
+          ]
+        },
+        {
+          "slots": [],
+          "name": "CourseInternshipIntent",
+          "samples": [
+            "funcionamento do estágio",
+            "estágios",
+            "estágio"
+          ]
+        },
+        {
+          "slots": [],
+          "name": "CourseFinalPaperIntent",
+          "samples": [
+            "trabalho de conclusão",
+            "trabalho de conclusão de curso",
+            "tcc"
+          ]
         }
       ],
-      "types": [],
+      "types": [
+        {
+          "values": [
+            {
+              "name": {
+                "synonyms": [
+                  "licenciatura em pedagogia"
+                ],
+                "value": "pedagogia"
+              }
+            },
+            {
+              "name": {
+                "synonyms": [
+                  "licenciatura em matemática"
+                ],
+                "value": "matemática"
+              }
+            },
+            {
+              "name": {
+                "synonyms": [
+                  "licenciatura em letras"
+                ],
+                "value": "letras"
+              }
+            },
+            {
+              "name": {
+                "synonyms": [
+                  "licenciatura em história"
+                ],
+                "value": "história"
+              }
+            },
+            {
+              "name": {
+                "synonyms": [
+                  "licenciatura em geografia"
+                ],
+                "value": "geografia"
+              }
+            },
+            {
+              "name": {
+                "synonyms": [
+                  "licenciatura em computação"
+                ],
+                "value": "computação"
+              }
+            },
+            {
+              "name": {
+                "synonyms": [
+                  "licenciatura em biologia",
+                  "licenciatura em ciências biológicas",
+                  "bio",
+                  "biologia"
+                ],
+                "value": "ciências biológicas"
+              }
+            },
+            {
+              "name": {
+                "synonyms": [
+                  "bacharelado em psicologia"
+                ],
+                "value": "psicologia"
+              }
+            },
+            {
+              "name": {
+                "synonyms": [
+                  "médico",
+                  "med",
+                  "bacharelado em medicina"
+                ],
+                "value": "medicina"
+              }
+            },
+            {
+              "name": {
+                "synonyms": [
+                  "engenharia",
+                  "software",
+                  "bacharelado em engenharia de software"
+                ],
+                "value": "engenharia de software"
+              }
+            }
+          ],
+          "name": "Courses"
+        }
+      ],
       "invocationName": "áudio upe"
     },
     "prompts": [
