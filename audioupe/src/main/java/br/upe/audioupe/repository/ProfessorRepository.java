@@ -17,4 +17,6 @@ public interface ProfessorRepository extends JpaRepository<Professor, Long> {
             "ORDER BY p.id DESC LIMIT 1")
     Optional<Professor> findProfessorByNameAndCourse(String name, String course);
 
+    @Query("SELECT p FROM Professor p WHERE :course IS NULL OR EXISTS (SELECT c FROM p.courses c WHERE c.name ILIKE %:course) ORDER BY :order")
+    List<Professor> listProfessors(String order, String course);
 }

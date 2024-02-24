@@ -40,4 +40,7 @@ public class Discipline {
     @Column(columnDefinition = "TEXT")
     private String bibliography;
 
+    @ManyToOne
+    private Course course;
+
 }
