@@ -21,9 +21,27 @@ module.exports = class MakerResponse {
             }
         }
 
-        let reponse = `A UPE Garanhuns conta com os cursos de ${coursesNames}. Para informações informações especificas fale curso de e nome do curso.`
+        let response = `A UPE Garanhuns conta com os cursos de ${coursesNames}. Para informações informações especificas fale curso de e nome do curso.`
 
-        return;
+        return response;
+    }
+    
+    async listFaqResponse(){
+        const faq = await this.api.listFaq();
+        let nomes = '';
+        for (let i = 0; i < faq.length; i++){
+            if(i === 0){
+                nomes = `${faq[i].nome}`;
+            } else if (i !== faq.length - 1){
+                nomes = `${nomes}, ${faq[i].nome}`;
+            } else {
+                nomes = `${nomes} e ${faq[i].nome}`;
+            }
+        }
+        
+        let response = `O FAQ do AudioUPE consegue responder as seguintes questões: ${nomes}. Para informações específicas informe a sua dúvida.`;
+        
+        return response;
     }
 
     async aboutCourseResponse(name) {
@@ -45,6 +63,28 @@ module.exports = class MakerResponse {
 
         let response = `O curso de ${course.name} possui duração de ${course.periods} períodos e com ${course.annualVacancies} vagas anuais ofertadas. ${this.messageEndInformationResponse({})}`;
 
+        return response;
+    }
+    
+    async aboutFaqItemResponse(name){
+        const {faq, error} = await this.api.findFaqByName(name);
+        if(error){
+            let response = `Não é possível responder essa questão. Porém consigo responder as seguintes situações: `;
+            const faqs = await this.api.listFaq();
+            for(let i = 0; i < faqs.length; i ++){
+                if(i === 0){
+                    response = `${response}, ${faqs[i].nome}`;
+                } else if (i !== faqs.length - 1){
+                    response =  `${response}, ${faqs[i].nome}`;
+                } else {
+                    response = `${response} ou ${faqs[i].nome}.`;
+                }
+            }
+            return response;
+        }
+        
+        let response = faq.resposta;
+        
         return response;
     }
 
@@ -71,6 +111,25 @@ module.exports = class MakerResponse {
         }
         return { objectives: course[information][page], size: course[information].length };
     }
+    
+    async aboutProfessorResponse(name, course){
+        const {professor, error} = await this.api.findProfessorByNameAndCourse(name, course);
+        
+        if(error) {
+            let response = `${name} não faz parte dos docentes do curso de ${course}. Informe outro professor ou professora`;
+            return response;
+        }
+        
+        const professorTitulo = professor.degree.toLowerCase();
+        
+        const areasOfExpertise = professor.areasOfExpertise;
+        const lastCommaIndex = areasOfExpertise.lastIndexOf(',');
+        const areasOfExpertiseFormatted = areasOfExpertise.substring(0, lastCommaIndex) + ' e' + areasOfExpertise.substring(lastCommaIndex + 1);
+
+        let response = `O professor ${professor.name} faz parte do curso de ${course}, atualmente é ${professorTitulo} na área de ${professor.field} e tem como principal foco as áreas de ${areasOfExpertiseFormatted}.`;
+        
+        return response;
+    }
 
     messageEndInformationResponse({ objectivesPage, undergraduateProfilePage, skillsPage, internshipPage, finalPaperPage }) {
         let response = objectivesPage === undefined && undergraduateProfilePage === undefined && skillsPage === undefined && internshipPage === undefined && finalPaperPage !== undefined ?
@@ -85,6 +144,9 @@ module.exports = class MakerResponse {
         response += "diciplinas e docentes do curso.";
         return response;
     }
+    
+    
 
 
 }
+

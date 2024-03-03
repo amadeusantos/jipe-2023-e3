@@ -1,359 +1,443 @@
 {
   "interactionModel": {
-    "dialog": {
-      "intents": [
-        {
-          "slots": [
-            {
-              "name": "discipline",
-              "elicitationRequired": true,
-              "type": "AMAZON.FirstName",
-              "confirmationRequired": false,
-              "prompts": {
-                "elicitation": "Elicit.Slot.511236961570.1585750091378"
+      "languageModel": {
+          "invocationName": "áudio upe",
+          "intents": [
+              {
+                  "name": "AMAZON.CancelIntent",
+                  "samples": [
+                      "encerrar",
+                      "valeu",
+                      "obrigado"
+                  ]
+              },
+              {
+                  "name": "AMAZON.HelpIntent",
+                  "samples": []
+              },
+              {
+                  "name": "AMAZON.StopIntent",
+                  "samples": []
+              },
+              {
+                  "name": "HelloWorldIntent",
+                  "slots": [],
+                  "samples": [
+                      "olá",
+                      "como vai você",
+                      "diga oi mundo",
+                      "diga oi",
+                      "oi",
+                      "diga olá mundo",
+                      "diga olá"
+                  ]
+              },
+              {
+                  "name": "AMAZON.NavigateHomeIntent",
+                  "samples": []
+              },
+              {
+                  "name": "AboutCourseIntent",
+                  "slots": [
+                      {
+                          "name": "course",
+                          "type": "Courses",
+                          "samples": [
+                              "curso de {course}",
+                              "{course}"
+                          ]
+                      }
+                  ],
+                  "samples": [
+                      "curso de {course}",
+                      "curso {course}",
+                      "fale sobre o curso {course}"
+                  ]
+              },
+              {
+                  "name": "InformationIntent",
+                  "slots": [
+                      {
+                          "name": "information",
+                          "type": "AMAZON.FirstName"
+                      }
+                  ],
+                  "samples": [
+                      "me der informações sobre {information}"
+                  ]
+              },
+              {
+                  "name": "AboutDisciplineIntent",
+                  "slots": [
+                      {
+                          "name": "discipline",
+                          "type": "AMAZON.FirstName"
+                      }
+                  ],
+                  "samples": [
+                      "Fale sobre a disciplina {discipline}"
+                  ]
+              },
+              {
+                  "name": "AboutProfessorIntent",
+                  "slots": [
+                      {
+                          "name": "professor",
+                          "type": "AMAZON.FirstName"
+                      }
+                  ],
+                  "samples": [
+                      "professora {professor}",
+                      "professor {professor}",
+                      "fale sobre a professora {professor}",
+                      "fale sobre o professor {professor}"
+                  ]
+              },
+              {
+                  "name": "ListCoursesIntent",
+                  "slots": [],
+                  "samples": [
+                      "quais os cursos disponibilizados",
+                      "quais os cursos",
+                      "cursos"
+                  ]
+              },
+              {
+                  "name": "CourseObjectiveIntent",
+                  "slots": [],
+                  "samples": [
+                      "mais",
+                      "objetivo",
+                      "Qual o objetivo do curso"
+                  ]
+              },
+              {
+                  "name": "CourseUndergraduateProfileIntent",
+                  "slots": [],
+                  "samples": [
+                      "perfil",
+                      "perfil dos egressos"
+                  ]
+              },
+              {
+                  "name": "CourseSkillsIntent",
+                  "slots": [],
+                  "samples": [
+                      "competências e habilidades",
+                      "habilidades e competências",
+                      "competências",
+                      "habilidades"
+                  ]
+              },
+              {
+                  "name": "CourseInternshipIntent",
+                  "slots": [],
+                  "samples": [
+                      "funcionamento do estágio",
+                      "estágios",
+                      "estágio"
+                  ]
+              },
+              {
+                  "name": "CourseFinalPaperIntent",
+                  "slots": [],
+                  "samples": [
+                      "trabalho de conclusão",
+                      "trabalho de conclusão de curso",
+                      "tcc"
+                  ]
+              },
+              {
+                  "name": "ListFaqIntent",
+                  "slots": [],
+                  "samples": [
+                      "duvidas",
+                      "faq",
+                      "audioupe faq",
+                      "quais dúvidas você consegue responder"
+                  ]
+              },
+              {
+                  "name": "AboutFaqItemIntent",
+                  "slots": [
+                      {
+                          "name": "FaqItem",
+                          "type": "FaqItem"
+                      }
+                  ],
+                  "samples": [
+                      "me explique sobre",
+                      "como funciona",
+                      "me diga sobre",
+                      "me de informações sobre {FaqItem}",
+                      "me explique sobre {FaqItem}",
+                      "quero saber sobre o {FaqItem}",
+                      "quero saber sobre a {FaqItem}",
+                      "me diga sobre {FaqItem}",
+                      "{FaqItem}"
+                  ]
               }
-            }
           ],
-          "name": "AboutDisciplineIntent",
-          "confirmationRequired": false,
-          "prompts": {}
-        },
-        {
-          "slots": [
-            {
-              "name": "professor",
-              "elicitationRequired": true,
-              "type": "AMAZON.FirstName",
-              "confirmationRequired": false,
-              "prompts": {
-                "elicitation": "Elicit.Slot.790516074345.272607839396"
+          "types": [
+              {
+                  "name": "Courses",
+                  "values": [
+                      {
+                          "name": {
+                              "value": "pedagogia",
+                              "synonyms": [
+                                  "licenciatura em pedagogia"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "matemática",
+                              "synonyms": [
+                                  "licenciatura em matemática"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "letras",
+                              "synonyms": [
+                                  "licenciatura em letras"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "história",
+                              "synonyms": [
+                                  "licenciatura em história"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "geografia",
+                              "synonyms": [
+                                  "licenciatura em geografia"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "computação",
+                              "synonyms": [
+                                  "licenciatura em computação"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "ciências biológicas",
+                              "synonyms": [
+                                  "licenciatura em biologia",
+                                  "licenciatura em ciências biológicas",
+                                  "bio",
+                                  "biologia"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "psicologia",
+                              "synonyms": [
+                                  "bacharelado em psicologia"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "medicina",
+                              "synonyms": [
+                                  "médico",
+                                  "med",
+                                  "bacharelado em medicina"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "engenharia de software",
+                              "synonyms": [
+                                  "engenharia",
+                                  "software",
+                                  "bacharelado em engenharia de software"
+                              ]
+                          }
+                      }
+                  ]
+              },
+              {
+                  "name": "FaqItem",
+                  "values": [
+                      {
+                          "name": {
+                              "value": "primeira chamada"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "segunda chamada",
+                              "synonyms": [
+                                  "2 chamada",
+                                  "segunda chamada"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "matricula",
+                              "synonyms": [
+                                  "matrícula"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "cancelamento de matricula",
+                              "synonyms": [
+                                  "cancelamento de matrícula",
+                                  "cancelar matrícula",
+                                  "cancelar matricula"
+                              ]
+                          }
+                      }
+                  ]
               }
-            }
-          ],
-          "name": "AboutProfessorIntent",
-          "confirmationRequired": false,
-          "prompts": {}
-        },
-        {
-          "slots": [
-            {
-              "name": "information",
-              "elicitationRequired": true,
-              "type": "AMAZON.FirstName",
-              "confirmationRequired": false,
-              "prompts": {
-                "elicitation": "Elicit.Slot.1140846243887.1463906915527"
-              }
-            }
-          ],
-          "name": "InformationIntent",
-          "confirmationRequired": false,
-          "prompts": {}
-        },
-        {
-          "slots": [
-            {
-              "name": "course",
-              "elicitationRequired": true,
-              "type": "Courses",
-              "confirmationRequired": false,
-              "prompts": {
-                "elicitation": "Elicit.Slot.922244839588.914521678220"
-              }
-            }
-          ],
-          "name": "AboutCourseIntent",
-          "confirmationRequired": false,
-          "prompts": {}
-        }
-      ],
-      "delegationStrategy": "ALWAYS"
-    },
-    "languageModel": {
-      "intents": [
-        {
-          "name": "AMAZON.CancelIntent",
-          "samples": [
-            "encerrar",
-            "valeu",
-            "obrigado"
           ]
-        },
-        {
-          "name": "AMAZON.HelpIntent",
-          "samples": []
-        },
-        {
-          "name": "AMAZON.StopIntent",
-          "samples": []
-        },
-        {
-          "slots": [],
-          "name": "HelloWorldIntent",
-          "samples": [
-            "olá",
-            "como vai você",
-            "diga oi mundo",
-            "diga oi",
-            "oi",
-            "diga olá mundo",
-            "diga olá"
-          ]
-        },
-        {
-          "name": "AMAZON.NavigateHomeIntent",
-          "samples": []
-        },
-        {
-          "slots": [
-            {
-              "name": "course",
-              "type": "Courses",
-              "samples": [
-                "curso de {course}",
-                "{course}"
+      },
+      "dialog": {
+          "intents": [
+              {
+                  "name": "AboutDisciplineIntent",
+                  "confirmationRequired": false,
+                  "prompts": {},
+                  "slots": [
+                      {
+                          "name": "discipline",
+                          "type": "AMAZON.FirstName",
+                          "confirmationRequired": false,
+                          "elicitationRequired": true,
+                          "prompts": {
+                              "elicitation": "Elicit.Slot.511236961570.1585750091378"
+                          }
+                      }
+                  ]
+              },
+              {
+                  "name": "AboutProfessorIntent",
+                  "confirmationRequired": false,
+                  "prompts": {},
+                  "slots": [
+                      {
+                          "name": "professor",
+                          "type": "AMAZON.FirstName",
+                          "confirmationRequired": false,
+                          "elicitationRequired": true,
+                          "prompts": {
+                              "elicitation": "Elicit.Slot.790516074345.272607839396"
+                          }
+                      }
+                  ]
+              },
+              {
+                  "name": "InformationIntent",
+                  "confirmationRequired": false,
+                  "prompts": {},
+                  "slots": [
+                      {
+                          "name": "information",
+                          "type": "AMAZON.FirstName",
+                          "confirmationRequired": false,
+                          "elicitationRequired": true,
+                          "prompts": {
+                              "elicitation": "Elicit.Slot.1140846243887.1463906915527"
+                          }
+                      }
+                  ]
+              },
+              {
+                  "name": "AboutCourseIntent",
+                  "confirmationRequired": false,
+                  "prompts": {},
+                  "slots": [
+                      {
+                          "name": "course",
+                          "type": "Courses",
+                          "confirmationRequired": false,
+                          "elicitationRequired": true,
+                          "prompts": {
+                              "elicitation": "Elicit.Slot.922244839588.914521678220"
+                          }
+                      }
+                  ]
+              },
+              {
+                  "name": "AboutFaqItemIntent",
+                  "confirmationRequired": false,
+                  "prompts": {},
+                  "slots": [
+                      {
+                          "name": "FaqItem",
+                          "type": "FaqItem",
+                          "confirmationRequired": false,
+                          "elicitationRequired": false,
+                          "prompts": {}
+                      }
+                  ]
+              }
+          ],
+          "delegationStrategy": "ALWAYS"
+      },
+      "prompts": [
+          {
+              "id": "Elicit.Slot.511236961570.1585750091378",
+              "variations": [
+                  {
+                      "type": "PlainText",
+                      "value": "Qual a disciplina?"
+                  },
+                  {
+                      "type": "PlainText",
+                      "value": "Qual disciplina você deseja saber?"
+                  }
               ]
-            }
-          ],
-          "name": "AboutCourseIntent",
-          "samples": [
-            "curso de {course}",
-            "curso {course}",
-            "fale sobre o curso {course}"
-          ]
-        },
-        {
-          "slots": [
-            {
-              "name": "information",
-              "type": "AMAZON.FirstName"
-            }
-          ],
-          "name": "InformationIntent",
-          "samples": [
-            "me der informações sobre {information}"
-          ]
-        },
-        {
-          "slots": [
-            {
-              "name": "discipline",
-              "type": "AMAZON.FirstName"
-            }
-          ],
-          "name": "AboutDisciplineIntent",
-          "samples": [
-            "Fale sobre a disciplina {discipline}"
-          ]
-        },
-        {
-          "slots": [
-            {
-              "name": "professor",
-              "type": "AMAZON.FirstName"
-            }
-          ],
-          "name": "AboutProfessorIntent",
-          "samples": [
-            "fale sobre o professor {professor}"
-          ]
-        },
-        {
-          "slots": [],
-          "name": "ListCoursesIntent",
-          "samples": [
-            "quais os cursos disponibilizados",
-            "quais os cursos",
-            "cursos"
-          ]
-        },
-        {
-          "slots": [],
-          "name": "CourseObjectiveIntent",
-          "samples": [
-            "mais",
-            "objetivo",
-            "Qual o objetivo do curso"
-          ]
-        },
-        {
-          "slots": [],
-          "name": "CourseUndergraduateProfileIntent",
-          "samples": [
-            "perfil",
-            "perfil dos egressos"
-          ]
-        },
-        {
-          "slots": [],
-          "name": "CourseSkillsIntent",
-          "samples": [
-            "competências e habilidades",
-            "habilidades e competências",
-            "competências",
-            "habilidades"
-          ]
-        },
-        {
-          "slots": [],
-          "name": "CourseInternshipIntent",
-          "samples": [
-            "funcionamento do estágio",
-            "estágios",
-            "estágio"
-          ]
-        },
-        {
-          "slots": [],
-          "name": "CourseFinalPaperIntent",
-          "samples": [
-            "trabalho de conclusão",
-            "trabalho de conclusão de curso",
-            "tcc"
-          ]
-        }
-      ],
-      "types": [
-        {
-          "values": [
-            {
-              "name": {
-                "synonyms": [
-                  "licenciatura em pedagogia"
-                ],
-                "value": "pedagogia"
-              }
-            },
-            {
-              "name": {
-                "synonyms": [
-                  "licenciatura em matemática"
-                ],
-                "value": "matemática"
-              }
-            },
-            {
-              "name": {
-                "synonyms": [
-                  "licenciatura em letras"
-                ],
-                "value": "letras"
-              }
-            },
-            {
-              "name": {
-                "synonyms": [
-                  "licenciatura em história"
-                ],
-                "value": "história"
-              }
-            },
-            {
-              "name": {
-                "synonyms": [
-                  "licenciatura em geografia"
-                ],
-                "value": "geografia"
-              }
-            },
-            {
-              "name": {
-                "synonyms": [
-                  "licenciatura em computação"
-                ],
-                "value": "computação"
-              }
-            },
-            {
-              "name": {
-                "synonyms": [
-                  "licenciatura em biologia",
-                  "licenciatura em ciências biológicas",
-                  "bio",
-                  "biologia"
-                ],
-                "value": "ciências biológicas"
-              }
-            },
-            {
-              "name": {
-                "synonyms": [
-                  "bacharelado em psicologia"
-                ],
-                "value": "psicologia"
-              }
-            },
-            {
-              "name": {
-                "synonyms": [
-                  "médico",
-                  "med",
-                  "bacharelado em medicina"
-                ],
-                "value": "medicina"
-              }
-            },
-            {
-              "name": {
-                "synonyms": [
-                  "engenharia",
-                  "software",
-                  "bacharelado em engenharia de software"
-                ],
-                "value": "engenharia de software"
-              }
-            }
-          ],
-          "name": "Courses"
-        }
-      ],
-      "invocationName": "áudio upe"
-    },
-    "prompts": [
-      {
-        "variations": [
-          {
-            "type": "PlainText",
-            "value": "Qual a disciplina?"
           },
           {
-            "type": "PlainText",
-            "value": "Qual disciplina você deseja saber?"
-          }
-        ],
-        "id": "Elicit.Slot.511236961570.1585750091378"
-      },
-      {
-        "variations": [
-          {
-            "type": "PlainText",
-            "value": "Qual o nome do professor que deseja informações?"
+              "id": "Elicit.Slot.790516074345.272607839396",
+              "variations": [
+                  {
+                      "type": "PlainText",
+                      "value": "Qual o nome do professor que deseja informações?"
+                  },
+                  {
+                      "type": "PlainText",
+                      "value": "Qual o nome do professor?"
+                  }
+              ]
           },
           {
-            "type": "PlainText",
-            "value": "Qual o nome do professor?"
-          }
-        ],
-        "id": "Elicit.Slot.790516074345.272607839396"
-      },
-      {
-        "variations": [
+              "id": "Elicit.Slot.1140846243887.1463906915527",
+              "variations": [
+                  {
+                      "type": "PlainText",
+                      "value": "qual o nome do serviço?"
+                  }
+              ]
+          },
           {
-            "type": "PlainText",
-            "value": "qual o nome do serviço?"
+              "id": "Elicit.Slot.922244839588.914521678220",
+              "variations": [
+                  {
+                      "type": "PlainText",
+                      "value": "Qual curso você deseja informações?"
+                  }
+              ]
           }
-        ],
-        "id": "Elicit.Slot.1140846243887.1463906915527"
-      },
-      {
-        "variations": [
-          {
-            "type": "PlainText",
-            "value": "Qual curso você deseja informações?"
-          }
-        ],
-        "id": "Elicit.Slot.922244839588.914521678220"
-      }
-    ]
+      ]
   }
 }

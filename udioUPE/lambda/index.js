@@ -45,6 +45,43 @@ const ListCoursesIntentHandler = {
     }
 }
 
+const ListFaqIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'ListFaqIntent';
+    },
+    async handle(handlerInput) {
+
+        const speakOutput = await makerResponse.listFaqResponse();
+
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .withShouldEndSession(false)
+            .getResponse();
+    }
+}
+
+const AboutFaqItemIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AboutFaqItemIntent';
+    },
+    async handle(handlerInput) {
+        
+        const faqitem = handlerInput.requestEnvelope.request.intent.slots.FaqItem.resolutions.resolutionsPerAuthority[0].values[0].value.name;
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        sessionAttributes.faqitem = faqitem;
+        handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
+        
+        const speakOutput = await makerResponse.aboutFaqItemResponse(faqitem);
+        
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .withShouldEndSession(false)
+            .getResponse();
+    }
+}
+
 const AboutCourseIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
@@ -251,14 +288,16 @@ const AboutProfessorIntentHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AboutProfessorIntent';
     },
-    handle(handlerInput) {
+    async handle(handlerInput) {
         const professor = handlerInput.requestEnvelope.request.intent.slots.professor.value;
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        const course = sessionAttributes.course;
 
-        const speakOutput = `${professor}, professor do curso de ${sessionAttributes.course}`;
+        const speakOutput = await makerResponse.aboutProfessorResponse(professor, course);
 
         return handlerInput.responseBuilder
-            .speak(speakOutput).withShouldEndSession(false)
+            .speak(speakOutput)
+            .withShouldEndSession(false)
             .getResponse();
     }
 }
@@ -423,7 +462,9 @@ exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
         ListCoursesIntentHandler,
+        ListFaqIntentHandler,
         AboutCourseIntentHandler,
+        AboutFaqItemIntentHandler,
         CourseObjectiveIntentHandler,
         CourseUndergraduateProfileIntentHandler,
         CourseSkillsIntentHandler,
