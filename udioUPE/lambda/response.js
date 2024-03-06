@@ -43,6 +43,26 @@ module.exports = class MakerResponse {
         
         return response;
     }
+    
+    async listDisciplinesResponse(course, period){
+        const disciplines = await this.api.ListDisciplinesByCouseAndPeriod("name", course, period);
+        let disciplineNames = '';
+        
+        for (let i = 0; i < disciplines.length; i++) {
+            if (i === 0) {
+                disciplineNames = `${disciplines[i].name}`;
+            } else if (i !== disciplines.length - 1) {
+                disciplineNames = `${disciplineNames}, ${disciplines[i].name}`;
+            } else {
+                disciplineNames = `${disciplineNames} e ${disciplines[i].name}`;
+            }
+        }
+        
+        let response = `As disciplinas do curso ${course} no período ${period} são: ${disciplineNames}. Para mais informações, por favor, informe a disciplina desejada.`;
+        
+        return response;
+        
+    }
 
     async aboutCourseResponse(name) {
         const { course, error } = await this.api.findCourseByName(name);
@@ -89,7 +109,6 @@ module.exports = class MakerResponse {
     }
 
     async courseInformationResponse(information, name, page = 0) {
-
         if (!name) {
             return "Nenhum curso selecionado. fale por exemplo curso de letras."
         }
@@ -128,6 +147,50 @@ module.exports = class MakerResponse {
 
         let response = `O professor ${professor.name} faz parte do curso de ${course}, atualmente é ${professorTitulo} na área de ${professor.field} e tem como principal foco as áreas de ${areasOfExpertiseFormatted}.`;
         
+        return response;
+    }
+    
+    async aboutDisciplineResponse(name, course){
+        const {discipline, error} = await this.api.findDisciplineByNameAndCourse(name, course);
+        
+        if(error || discipline === null){
+            let respose = `Essa disciplina não faz parte do ${course}`;
+        }
+        
+        const totalWorkload = discipline.theoreticalWorkload + discipline.practicalWorkload;
+        let response = `${discipline.name} é uma disciplina do curso de ${course}, faz parte do ${discipline.period} período e possui carga horária total de ${totalWorkload} horas. Tem como objetivo geral ${discipline.generalObjective}.
+                        Além disso posso falar os objetivos específicos, a ementa, bibliografia e o conteúdo programático da disciplina.`;
+
+        return response;
+    }
+    
+    async disciplineInformationResponse(information, course, name, page = 0){
+        if (!name) {
+            return "Nenhum disciplina selecionada. fale por exemplo estruturas de dados."
+        }
+        const { discipline, error } = await this.api.findDisciplineByNameAndCourse(name, course);
+
+        // if (error) {
+        //     let response = `Não foi encontrado ${name} você quis dizer `
+        //     const courses = await this.api.listCourses();
+        //     for (let i = 0; i < courses.length; i++) {
+        //         if (i === 0) {
+        //             response = `${response}, ${courses[i].nome}`;
+        //         } else if (i !== courses.length - 1) {
+        //             response = `${response}, ${courses[i].nome}`;
+        //         } else {
+        //             response = `${response} ou ${courses[i].nome}.`;
+        //         }
+        //     }
+        //     return response;
+        // }
+        return { objectives: discipline[information][page], size: discipline[information].length };
+    }
+    
+    async disciplineProgramResponse(course, name){
+        const { discipline, error } = await this.api.findDisciplineByNameAndCourse(name, course);
+        
+        let response = `${discipline.program}`;
         return response;
     }
 

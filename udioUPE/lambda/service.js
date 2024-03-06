@@ -3,7 +3,7 @@ const axios = require('axios');
 module.exports = class ServiceApi {
     constructor() {
         this.api = axios.create({
-            baseURL: "https://e49e-200-133-1-75.ngrok-free.app/"
+            baseURL: "https://80b4-138-0-27-112.ngrok-free.app/"
         });
     }
 
@@ -48,5 +48,22 @@ module.exports = class ServiceApi {
             error = err.response.status
         })
         return { professor, error };
+    }
+    
+    async ListDisciplinesByCouseAndPeriod(order = "name", course = null, period = null){
+        const params = {order, course, period};
+        const response = await this.api.get("/disciplines", {params});
+        return response.data;
+    }
+    
+    async findDisciplineByNameAndCourse(name, course){
+        let discipline;
+        let error;
+        await this.api.get("disciplines/" + course + "/" + name).then((response) => {
+            discipline = response.data
+        }).catch((err) => {
+            error = err.response.status
+        })
+        return {discipline, error}
     }
 }

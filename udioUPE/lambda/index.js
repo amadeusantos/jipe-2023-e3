@@ -61,6 +61,49 @@ const ListFaqIntentHandler = {
     }
 }
 
+const ListDisciplinesIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'ListDisciplinesIntent';
+    },
+    async handle(handlerInput) {
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        
+        let period;
+        
+        if(sessionAttributes.period){
+            period = sessionAttributes.period;
+        } else {
+            period = handlerInput.requestEnvelope.request.intent.slots.periodo.value;
+        }
+        
+        let course;
+
+        if (sessionAttributes.course) {
+            course = sessionAttributes.course;
+        } else {
+            course = handlerInput.requestEnvelope.request.intent.slots.curso.value;
+        } 
+        
+        if (!course) {
+            const speakOutput = "Sobre qual curso?";
+            sessionAttributes.expectedIntent = 'ListDisciplinesIntent';
+            sessionAttributes.period = period;
+            return handlerInput.responseBuilder
+                .speak(speakOutput)
+                .withShouldEndSession(false)
+                .getResponse();
+        }
+        
+        const speakOutput = await makerResponse.listDisciplinesResponse(course, period);
+
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .withShouldEndSession(false)
+            .getResponse();
+    }
+}
+
 const AboutFaqItemIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
@@ -92,7 +135,11 @@ const AboutCourseIntentHandler = {
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
         sessionAttributes.course = course;
         handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
-
+        
+        if(sessionAttributes.expectedIntent === 'ListDisciplinesIntent'){
+            return ListDisciplinesIntentHandler.handle(handlerInput);
+        }
+        
         const speakOutput = await makerResponse.aboutCourseResponse(course);
 
         return handlerInput.responseBuilder
@@ -307,17 +354,150 @@ const AboutDisciplineIntentHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AboutDisciplineIntent';
     },
-    handle(handlerInput) {
+    async handle(handlerInput) {
         const discipline = handlerInput.requestEnvelope.request.intent.slots.discipline.value;
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        sessionAttributes.discipline = discipline;
+        
+        let course;
+        if (sessionAttributes.course) {
+            course = sessionAttributes.course;
+        } else {
+            course = handlerInput.requestEnvelope.request.intent.slots.course.value;
+        }
 
-        const speakOutput = `${discipline}, professor do curso de ${sessionAttributes.course}`;
+        const speakOutput = await makerResponse.aboutDisciplineResponse(discipline, course);
 
         return handlerInput.responseBuilder
             .speak(speakOutput).withShouldEndSession(false)
             .getResponse();
     }
-}
+};
+
+const DisciplineSpecificObjectiveIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'DisciplineSpecificObjectiveIntent';
+    },
+    async handle(handlerInput) {
+
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        const course = sessionAttributes.course;
+        const disciplineName = sessionAttributes.discipline;
+
+        let page = Number(sessionAttributes.undergraduateProfilePage) || 0;
+        let response = "";
+        if (page === 0 || handlerInput.requestEnvelope.request.intent.confirmationStatus === 'CONFIRMED') {
+
+            const { objectives, size } = await makerResponse.disciplineInformationResponse('specificObjective', course,disciplineName, page);
+            response = objectives + " ";
+
+
+
+            if (page + 1 < size) {
+                sessionAttributes.undergraduateProfilePage = page + 1;
+                return handlerInput.responseBuilder.speak(response + makerResponse.MSG_PLUS_INFOR())
+                    .addConfirmIntentDirective({ name: 'DisciplineSpecificObjectiveIntent', confirmationStatus: 'NONE', slots: handlerInput.requestEnvelope.request.intent.slots })
+                    .withShouldEndSession(false).getResponse();
+            }
+        }
+
+        sessionAttributes.undergraduateProfilePage = 0;
+        return handlerInput.responseBuilder
+            .speak(response)
+            .withShouldEndSession(false)
+            .getResponse();
+    }
+};
+
+const DisciplineContentProgramIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'DisciplineContentProgramIntent';
+    },
+    async handle(handlerInput) {
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        const course = sessionAttributes.course;
+        const disciplineName = sessionAttributes.discipline;
+
+        let page = Number(sessionAttributes.undergraduateProfilePage) || 0;
+        let response = "";
+        if (page === 0 || handlerInput.requestEnvelope.request.intent.confirmationStatus === 'CONFIRMED') {
+
+            const { objectives, size } = await makerResponse.disciplineInformationResponse('contentProgram', course,disciplineName, page);
+            response = objectives + " ";
+
+
+
+            if (page + 1 < size) {
+                sessionAttributes.undergraduateProfilePage = page + 1;
+                return handlerInput.responseBuilder.speak(response + makerResponse.MSG_PLUS_INFOR())
+                    .addConfirmIntentDirective({ name: 'DisciplineContentProgramIntent', confirmationStatus: 'NONE', slots: handlerInput.requestEnvelope.request.intent.slots })
+                    .withShouldEndSession(false).getResponse();
+            }
+        }
+
+        sessionAttributes.undergraduateProfilePage = 0;
+        return handlerInput.responseBuilder
+            .speak(response)
+            .withShouldEndSession(false)
+            .getResponse();
+    }
+};
+
+const DisciplineBibliographyIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'DisciplineBibliographyIntent';
+    },
+    async handle(handlerInput) {
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        const course = sessionAttributes.course;
+        const disciplineName = sessionAttributes.discipline;
+
+        let page = Number(sessionAttributes.undergraduateProfilePage) || 0;
+        let response = "";
+        if (page === 0 || handlerInput.requestEnvelope.request.intent.confirmationStatus === 'CONFIRMED') {
+
+            const { objectives, size } = await makerResponse.disciplineInformationResponse('bibliography', course,disciplineName, page);
+            response = objectives + " ";
+
+
+
+            if (page + 1 < size) {
+                sessionAttributes.undergraduateProfilePage = page + 1;
+                return handlerInput.responseBuilder.speak(response + makerResponse.MSG_PLUS_INFOR())
+                    .addConfirmIntentDirective({ name: 'DisciplineBibliographyIntent', confirmationStatus: 'NONE', slots: handlerInput.requestEnvelope.request.intent.slots })
+                    .withShouldEndSession(false).getResponse();
+            }
+        }
+
+        sessionAttributes.undergraduateProfilePage = 0;
+        return handlerInput.responseBuilder
+            .speak(response)
+            .withShouldEndSession(false)
+            .getResponse();
+    }
+};
+
+const DisciplineProgramIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'DisciplineProgramIntent';
+    },
+    async handle(handlerInput) {
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        const course = sessionAttributes.course;
+        const disciplineName = sessionAttributes.discipline;
+        
+        const response = await makerResponse.disciplineProgramResponse(course, disciplineName);
+        
+        return handlerInput.responseBuilder
+            .speak(response)
+            .withShouldEndSession(false)
+            .getResponse();
+    }
+};
 
 const InformationIntentHandler = {
     canHandle(handlerInput) {
@@ -463,6 +643,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         LaunchRequestHandler,
         ListCoursesIntentHandler,
         ListFaqIntentHandler,
+        ListDisciplinesIntentHandler,
         AboutCourseIntentHandler,
         AboutFaqItemIntentHandler,
         CourseObjectiveIntentHandler,
@@ -472,6 +653,10 @@ exports.handler = Alexa.SkillBuilders.custom()
         CourseFinalPaperIntentHandler,
         AboutProfessorIntentHandler,
         AboutDisciplineIntentHandler,
+        DisciplineSpecificObjectiveIntentHandler,
+        DisciplineContentProgramIntentHandler,
+        DisciplineBibliographyIntentHandler,
+        DisciplineProgramIntentHandler,
         InformationIntentHandler,
         HelloWorldIntentHandler,
         HelpIntentHandler,
