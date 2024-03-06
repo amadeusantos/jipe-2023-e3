@@ -1,6 +1,7 @@
 package br.upe.audioupe.controller;
 
 import br.upe.audioupe.controller.response.DisciplineResponse;
+import br.upe.audioupe.model.Discipline;
 import br.upe.audioupe.service.DisciplineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,12 @@ public class DisciplineController {
             @RequestParam(required = false) Integer period
     ) {
         return  ResponseEntity.ok(service.ListDisciplines(order, course, period).stream().map(DisciplineResponse::new).toList());
+    }
+
+    @GetMapping("/{course}/{name}")
+    public ResponseEntity<DisciplineResponse> findByNameAndCourse(@PathVariable String course,  @PathVariable String name){
+        Discipline discipline = service.findDisciplineByNameAndCourse(name, course);
+        return ResponseEntity.ok(new DisciplineResponse(discipline));
     }
 
 }
