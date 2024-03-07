@@ -3,7 +3,7 @@ const axios = require('axios');
 module.exports = class ServiceApi {
     constructor() {
         this.api = axios.create({
-            baseURL: "https://80b4-138-0-27-112.ngrok-free.app/"
+            baseURL: "https://ae2b-138-0-27-112.ngrok-free.app/"
         });
     }
 

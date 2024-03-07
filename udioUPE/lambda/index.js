@@ -138,6 +138,21 @@ const AboutCourseIntentHandler = {
         
         if(sessionAttributes.expectedIntent === 'ListDisciplinesIntent'){
             return ListDisciplinesIntentHandler.handle(handlerInput);
+            
+        } else if (sessionAttributes.expectedIntent === 'CourseObjectiveIntent'){
+            return CourseObjectiveIntentHandler.handle(handlerInput);
+            
+        } else if (sessionAttributes.expectedIntent === 'CourseUndergraduateProfileIntent'){
+            return CourseUndergraduateProfileIntentHandler.handle(handlerInput);
+            
+        } else if (sessionAttributes.expectedIntent === 'CourseSkillsIntent'){
+            return CourseSkillsIntentHandler.handle(handlerInput);
+            
+        } else if (sessionAttributes.expectedIntent === 'CourseInternshipIntent'){
+            return CourseInternshipIntentHandler.handle(handlerInput);
+            
+        } else if (sessionAttributes.expectedIntent === 'CourseFinalPaperIntent'){
+            return CourseFinalPaperIntentHandler.handle(handlerInput);
         }
         
         const speakOutput = await makerResponse.aboutCourseResponse(course);
@@ -156,6 +171,16 @@ const CourseObjectiveIntentHandler = {
     },
     async handle(handlerInput) {
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        
+        if (!sessionAttributes.course) {
+            const speakOutput = "Sobre qual curso?";
+            sessionAttributes.expectedIntent = 'CourseObjectiveIntent';
+            return handlerInput.responseBuilder
+                .speak(speakOutput)
+                .withShouldEndSession(false)
+                .getResponse();
+        }
+        
 
         let page = Number(sessionAttributes.objectivesPage) || 0;
         let response = "";
@@ -189,12 +214,21 @@ const CourseUndergraduateProfileIntentHandler = {
     },
     async handle(handlerInput) {
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        
+        if (!sessionAttributes.course) {
+            const speakOutput = "Sobre qual curso?";
+            sessionAttributes.expectedIntent = 'CourseUndergraduateProfileIntent';
+            return handlerInput.responseBuilder
+                .speak(speakOutput)
+                .withShouldEndSession(false)
+                .getResponse();
+        }
 
         let page = Number(sessionAttributes.undergraduateProfilePage) || 0;
         let response = "";
         if (page === 0 || handlerInput.requestEnvelope.request.intent.confirmationStatus === 'CONFIRMED') {
 
-            const { objectives, size } = await makerResponse.courseInformationResponse('UndergraduateProfile', sessionAttributes.course, page);
+            const { objectives, size } = await makerResponse.courseInformationResponse('undergraduateProfile', sessionAttributes.course, page);
             response = objectives + " ";
 
 
@@ -222,6 +256,15 @@ const CourseSkillsIntentHandler = {
     },
     async handle(handlerInput) {
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        
+        if (!sessionAttributes.course) {
+            const speakOutput = "Sobre qual curso?";
+            sessionAttributes.expectedIntent = 'CourseSkillsIntent';
+            return handlerInput.responseBuilder
+                .speak(speakOutput)
+                .withShouldEndSession(false)
+                .getResponse();
+        }
 
         let page = Number(sessionAttributes.skillsPage) || 0;
         let response = "";
@@ -255,6 +298,15 @@ const CourseInternshipIntentHandler = {
     },
     async handle(handlerInput) {
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        
+        if (!sessionAttributes.course) {
+            const speakOutput = "Sobre qual curso?";
+            sessionAttributes.expectedIntent = 'CourseInternshipIntent';
+            return handlerInput.responseBuilder
+                .speak(speakOutput)
+                .withShouldEndSession(false)
+                .getResponse();
+        }
 
         let page = Number(sessionAttributes.internshipPage) || 0;
         let response = "";
@@ -288,6 +340,15 @@ const CourseFinalPaperIntentHandler = {
     },
     async handle(handlerInput) {
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        
+        if (!sessionAttributes.course) {
+            const speakOutput = "Sobre qual curso?";
+            sessionAttributes.expectedIntent = 'CourseFinalPaperIntent';
+            return handlerInput.responseBuilder
+                .speak(speakOutput)
+                .withShouldEndSession(false)
+                .getResponse();
+        }
 
         let page = Number(sessionAttributes.finalPaperPage) || 0;
         let response = "";

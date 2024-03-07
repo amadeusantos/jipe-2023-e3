@@ -104,6 +104,10 @@
                     "name": "ListCoursesIntent",
                     "slots": [],
                     "samples": [
+                        "quais são os cursos ofertados pela upe garanhuns",
+                        "quais são os cursos disponibilizados pela upe garanhuns",
+                        "quais são os cursos ofertados pela upe campus garanhuns",
+                        "quais os cursos disponibilizados pela upe campus garanhuns",
                         "quais os cursos disponibilizados",
                         "quais os cursos",
                         "cursos"
@@ -113,6 +117,11 @@
                     "name": "CourseObjectiveIntent",
                     "slots": [],
                     "samples": [
+                        "quais são os objetivos",
+                        "quais são os objetivos do curso",
+                        "me fale sobre os objetivos do curso",
+                        "me explique sobre os objetivos do curso",
+                        "quais os objetivos do curso",
                         "mais",
                         "objetivo",
                         "Qual o objetivo do curso"
@@ -122,6 +131,12 @@
                     "name": "CourseUndergraduateProfileIntent",
                     "slots": [],
                     "samples": [
+                        "qual perfil vou ter ao final do curso",
+                        "como funciona quando eu finalizar o curso",
+                        "término do curso",
+                        "me explique sobre o perfil dos egressos",
+                        "qual o perfil dos egressos",
+                        "me fale sobre o perfil dos egressos",
                         "perfil",
                         "perfil dos egressos"
                     ]
@@ -130,6 +145,10 @@
                     "name": "CourseSkillsIntent",
                     "slots": [],
                     "samples": [
+                        "me explique sobre competências e habilidades",
+                        "me explique sobre habilidades e competências",
+                        "me fale sobre habilidades e competências",
+                        "me fale sobre competências e habilidades",
                         "competências e habilidades",
                         "habilidades e competências",
                         "competências",
@@ -140,6 +159,9 @@
                     "name": "CourseInternshipIntent",
                     "slots": [],
                     "samples": [
+                        "me explique sobre estágio",
+                        "como funciona o estágio",
+                        "me fale sobre estágio",
                         "funcionamento do estágio",
                         "estágios",
                         "estágio"
@@ -149,6 +171,12 @@
                     "name": "CourseFinalPaperIntent",
                     "slots": [],
                     "samples": [
+                        "como funciona o trabalho de conclusão de curso",
+                        "me explique sobre o trabalho de conclusão de curso",
+                        "me fale sobre o trabalho de conclusão de curso",
+                        "como funciona o tcc",
+                        "me explique sobre o tcc",
+                        "me fale sobre o tcc",
                         "trabalho de conclusão",
                         "trabalho de conclusão de curso",
                         "tcc"
