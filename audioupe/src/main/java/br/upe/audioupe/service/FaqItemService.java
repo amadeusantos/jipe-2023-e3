@@ -4,7 +4,6 @@ import br.upe.audioupe.model.FaqItem;
 import br.upe.audioupe.repository.FaqItemRepository;
 import br.upe.audioupe.utils.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,8 +13,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class FaqItemService{
 
-    @Autowired
-    private FaqItemRepository repository;
+    private final FaqItemRepository repository;
 
     public List<FaqItem> listFaq(){
         return repository.findAll();
