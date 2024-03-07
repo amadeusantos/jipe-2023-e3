@@ -2,6 +2,7 @@ package br.upe.audioupe.controller.response;
 
 import br.upe.audioupe.model.Course;
 import br.upe.audioupe.model.Discipline;
+import br.upe.audioupe.model.Professor;
 import br.upe.audioupe.model.enums.DegreeEnum;
 import br.upe.audioupe.model.enums.EntriesEnum;
 import br.upe.audioupe.model.enums.ModalityEnum;
@@ -48,6 +49,7 @@ public class CourseResponse {
     private final List<String> finalPaper;
 
     private final List<String> disciplines;
+    private final List<String> professors;
 
     public CourseResponse(Course course) {
         this.id = course.getId();
@@ -68,5 +70,6 @@ public class CourseResponse {
         this.internship = List.of(course.getInternship().split("; "));
         this.finalPaper = List.of(course.getFinalPaper().split("; "));
         this.disciplines = course.getDisciplines().stream().map(Discipline::getName).toList();
+        this.professors = course.getProfessors().stream().map(Professor::getName).toList();
     }
 }

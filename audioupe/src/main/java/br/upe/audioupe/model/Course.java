@@ -72,7 +72,7 @@ public class Course {
             inverseJoinColumns = @JoinColumn(name = "professor_id"))
     private List<Professor> professors;
 
-    @OneToMany
+    @OneToMany(mappedBy = "course")
     private List<Discipline> disciplines;
 
 }
