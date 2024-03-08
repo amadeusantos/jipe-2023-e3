@@ -13,4 +13,4 @@ VALUES
     (11, 'Pensamento Computacional e Ensino de Computação.', 'MESTRE', 'victor.santos@upe.br', 'Ciências da Computação', 'Victor Afonso dos Santos Ferreira'),
     (12, 'Matemática, Probabilidade e Estatística Aplicadas e Educação a distância.', 'DOUTOR', 'milton.perceus@upe.br', 'Biometria e Estatística Aplicada', 'Milton Perceus Santos');
 
-INSERT INTO professor_courses(professor_id, courses_id) VALUES (1,1), (2,1), (3,1), (4,1), (5,1), (6,1), (7,1), (8,1), (9,1), (10,1), (11,1), (12,1);
+INSERT INTO course_professor(professor_id, course_id) VALUES (1,1), (2,1), (3,1), (4,1), (5,1), (6,1), (7,1), (8,1), (9,1), (10,1), (11,1), (12,1);

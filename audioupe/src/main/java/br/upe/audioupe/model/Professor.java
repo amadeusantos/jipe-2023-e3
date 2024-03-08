@@ -29,7 +29,7 @@ public class Professor {
 
     private String areasOfExpertise;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "professors")
     private List<Course> courses;
 
 }
